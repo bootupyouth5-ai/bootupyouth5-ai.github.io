@@ -1,0 +1,746 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Cassie Menor</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Layout: huge two-line wordmark beside three studio-lit garment tiles, then a sortable product grid, product pages in a modal, a bag with free-shipping tracker, shipping info and a size guide. */
+:root {
+  --bg: #EFEDF6;
+  --surface: #FFFFFF;
+  --ink: #1A1633;
+  --muted: #5E5A78;
+  --line: #D9D5E8;
+  --accent: #2F3BEA;
+  --accent-ink: #FFFFFF;
+  --pop: #F5D85A;
+  --pop-ink: #1A1633;
+  --font-display: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Figtree', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #13111F;
+    --surface: #1D1A2E;
+    --ink: #F0EDFA;
+    --muted: #A39FBD;
+    --line: #322E4A;
+    --accent: #8F98FF;
+    --accent-ink: #13111F;
+    --pop: #F5D85A;
+    --pop-ink: #1A1633;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #13111F;
+  --surface: #1D1A2E;
+  --ink: #F0EDFA;
+  --muted: #A39FBD;
+  --line: #322E4A;
+  --accent: #8F98FF;
+  --accent-ink: #13111F;
+  --pop: #F5D85A;
+  --pop-ink: #1A1633;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  padding-block: 0 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 30;
+  background: var(--bg);
+}
+h1, h2, h3, p, ul { margin: 0; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.wrap { max-width: 1200px; margin-inline: auto; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Announcement + header */
+.ann { display: flex; justify-content: center; padding-block: 10px 12px; }
+.ann p { background: var(--pop); color: var(--pop-ink); font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; text-align: center; }
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.brand { font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; letter-spacing: -0.02em; color: var(--ink); text-decoration: none; }
+.nav { display: flex; align-items: center; gap: 22px; }
+.nav a { color: var(--muted); text-decoration: none; font-weight: 500; font-size: 0.95rem; }
+.nav a:hover { color: var(--ink); }
+.bag-btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; border: 1.5px solid var(--ink); background: transparent; font-weight: 600; font-size: 0.95rem; transition: background 0.15s, color 0.15s; }
+.bag-btn:hover { background: var(--ink); color: var(--bg); }
+.bag-btn .n { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 32px; align-items: end; padding-block: 40px 40px; }
+.hero-text { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
+.tag { background: var(--ink); color: var(--bg); font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; }
+h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(3.4rem, 12vw, 8.5rem); line-height: 0.86; letter-spacing: -0.045em; }
+h1 span { display: block; }
+.lede { max-width: 34ch; font-size: 1.15rem; color: var(--muted); }
+.cta { display: inline-block; padding: 13px 24px; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font-weight: 600; text-decoration: none; }
+.cta:hover { filter: brightness(1.08); }
+.hero-art { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; align-items: start; }
+.hero-art .tile:nth-child(2) { margin-top: 28px; }
+
+/* Studio-lit garment tiles: the backdrop is always light so every garment color reads in both themes */
+.tile {
+  --c: #3B4BF0;
+  position: relative; border-radius: 14px; aspect-ratio: 4 / 5; max-width: 100%;
+  background: #E6E3F0;
+  background: radial-gradient(120% 90% at 50% 28%, #F9F8FD 0%, #DEDAEC 100%);
+  display: grid; place-items: center; padding: 12%; overflow: hidden;
+}
+.tile::after { content: ""; position: absolute; left: 22%; right: 22%; bottom: 7%; height: 5%; border-radius: 50%; background: rgba(26, 22, 51, 0.12); filter: blur(6px); }
+.tile svg { position: relative; z-index: 1; width: 100%; height: 100%; color: var(--c); filter: drop-shadow(0 8px 9px rgba(26, 22, 51, 0.2)); }
+.badge { position: absolute; z-index: 2; top: 10px; left: 10px; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; }
+.badge.new { background: #F5D85A; color: #1A1633; }
+.badge.sale { background: #1A1633; color: #FFFFFF; }
+
+/* Shop */
+.shop-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px 24px; padding-block: 24px 18px; border-top: 1px solid var(--line); }
+h2 { font-family: var(--font-display); font-weight: 700; font-size: 2rem; letter-spacing: -0.03em; }
+.count { font-family: var(--font-mono); font-size: 0.85rem; color: var(--muted); }
+.controls { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 24px; padding-bottom: 24px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filter { padding: 8px 16px; border-radius: 999px; border: 1.5px solid var(--line); background: transparent; font-weight: 500; font-size: 0.95rem; }
+.filter:hover { border-color: var(--ink); }
+.filter[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.sort { display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--muted); }
+.sort select { font: inherit; color: var(--ink); background: var(--surface); border: 1.5px solid var(--line); border-radius: 999px; padding: 8px 14px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 36px 20px; }
+.card { min-width: 0; }
+.card-main { display: flex; flex-direction: column; gap: 8px; width: 100%; padding: 0; border: 0; background: transparent; text-align: left; }
+.card-main .tile { transition: transform 0.2s; }
+.card-main:hover .tile { transform: translateY(-3px); }
+.meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 4px; }
+.nm { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; letter-spacing: -0.01em; }
+.pr { font-family: var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pr .was, .m-price .was { color: var(--muted); margin-left: 8px; }
+.cat { font-size: 0.85rem; color: var(--muted); }
+.dots { display: flex; gap: 6px; }
+.dots i { width: 14px; height: 14px; border-radius: 50%; background: var(--sw); border: 1px solid var(--line); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25); }
+
+/* Search */
+.search { position: relative; max-width: 560px; margin-bottom: 16px; }
+.search svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--muted); pointer-events: none; }
+.search input { width: 100%; font: inherit; font-size: 1rem; color: var(--ink); background: var(--surface); border: 1.5px solid var(--line); border-radius: 999px; padding: 12px 84px 12px 44px; }
+.search input::placeholder { color: var(--muted); }
+.search input::-webkit-search-cancel-button { appearance: none; display: none; }
+.search input:hover { border-color: var(--muted); }
+.search input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-color: var(--ink); }
+.search .clear { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); padding: 6px 12px; }
+.none { padding-block: 40px; color: var(--muted); display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+
+/* Info row + size guide */
+.info { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; padding-block: 48px 8px; margin-top: 48px; border-top: 1px solid var(--line); }
+.info h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+.info p { color: var(--muted); max-width: 40ch; }
+.guide { padding-block: 48px 8px; display: flex; flex-direction: column; gap: 16px; }
+.guide p { color: var(--muted); max-width: 60ch; }
+.table-wrap { overflow-x: auto; max-width: 100%; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 440px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 12px 18px; border-bottom: 1px solid var(--line); font-size: 0.95rem; }
+tr:last-child td { border-bottom: 0; }
+th { font-family: var(--font-mono); font-weight: 500; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+td:first-child { font-weight: 600; }
+footer { padding-block: 40px 0; color: var(--muted); font-size: 0.9rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+footer strong { font-family: var(--font-display); color: var(--ink); }
+
+/* Buttons + options */
+.btn { padding: 12px 18px; border-radius: 999px; border: 1.5px solid var(--ink); background: transparent; font-weight: 600; transition: background 0.15s, color 0.15s; }
+.btn:hover { background: var(--ink); color: var(--bg); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.primary:hover { filter: brightness(1.08); background: var(--accent); color: var(--accent-ink); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.note { font-size: 0.85rem; color: var(--muted); min-height: 1.2em; }
+.close { border: 0; background: transparent; padding: 8px 10px; border-radius: 8px; font-weight: 600; color: var(--muted); }
+.close:hover { color: var(--ink); }
+.opt { border: 0; padding: 0; margin: 0; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+.opt legend { padding: 0; display: flex; justify-content: space-between; gap: 12px; width: 100%; font-size: 0.9rem; margin-bottom: 10px; }
+.opt legend a { color: var(--accent); font-size: 0.85rem; }
+.opt-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { position: relative; }
+.chip input, .sw input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; width: 100%; height: 100%; }
+.chip span:first-of-type { display: grid; place-items: center; min-width: 44px; height: 40px; padding-inline: 10px; border: 1.5px solid var(--line); border-radius: 8px; font-family: var(--font-mono); font-size: 0.85rem; }
+.chip:hover span:first-of-type { border-color: var(--ink); }
+.chip input:checked + span { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.chip input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 2px; }
+.chip.out input { cursor: not-allowed; }
+.chip.out span:first-of-type { color: var(--muted); text-decoration: line-through; opacity: 0.55; border-style: dashed; }
+.chip.out:hover span:first-of-type { border-color: var(--line); }
+.sw { position: relative; width: 36px; height: 36px; }
+.sw span:first-of-type { display: block; width: 100%; height: 100%; border-radius: 50%; background: var(--sw); border: 1.5px solid var(--line); }
+.sw input:checked + span { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--ink); }
+.sw input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 4px; }
+
+/* Product modal */
+.modal { position: fixed; inset: 0; z-index: 50; background: rgba(10, 8, 24, 0.55); overflow-y: auto; display: grid; place-items: center;
+  padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; width: 100%; max-width: 880px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); overflow: hidden; margin-block: auto; }
+.panel .tile { border-radius: 0; aspect-ratio: auto; min-height: 100%; }
+.m-info { padding: 22px 28px 28px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.m-top { display: flex; justify-content: space-between; align-items: center; }
+.m-info h2 { font-size: 1.9rem; }
+.m-price { font-family: var(--font-mono); font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+.desc { color: var(--muted); }
+details { border-top: 1px solid var(--line); padding-block: 12px; }
+details:last-of-type { border-bottom: 1px solid var(--line); }
+summary { cursor: pointer; font-weight: 600; }
+details ul { padding-left: 18px; margin-top: 8px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; font-size: 0.95rem; }
+details p { margin-top: 8px; color: var(--muted); font-size: 0.95rem; }
+
+/* Bag drawer */
+.scrim { position: fixed; inset: 0; z-index: 40; background: rgba(10, 8, 24, 0.5); }
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; z-index: 50; width: min(430px, 100%); display: flex; flex-direction: column; background: var(--surface); border-left: 1px solid var(--line);
+  padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); padding-right: env(safe-area-inset-right, 0px); }
+.drawer-head { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+.drawer-head h2 { font-size: 1.4rem; }
+.ship { padding: 14px 20px 6px; display: flex; flex-direction: column; gap: 8px; }
+.ship p { font-size: 0.9rem; }
+.bar { height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width 0.25s; }
+.lines { flex: 1; overflow-y: auto; padding: 4px 20px; }
+.empty { padding-block: 28px; color: var(--muted); }
+.line { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: 14px; padding-block: 16px; border-bottom: 1px solid var(--line); align-items: start; }
+.line .tile { border-radius: 10px; padding: 10%; }
+.line .tile::after { display: none; }
+.line .tile svg { filter: none; }
+.ln { font-weight: 600; }
+.ls { font-size: 0.82rem; color: var(--muted); font-family: var(--font-mono); }
+.qty { display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; border: 1.5px solid var(--line); border-radius: 999px; }
+.qty button { width: 30px; height: 30px; border: 0; background: transparent; border-radius: 999px; font-size: 1.05rem; }
+.qty button:hover { background: var(--bg); }
+.qty span { min-width: 22px; text-align: center; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.lr { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.lp { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-weight: 500; }
+.rm { border: 0; background: transparent; padding: 0; font-size: 0.82rem; color: var(--muted); text-decoration: underline; }
+.rm:hover { color: var(--ink); }
+.drawer-foot { padding: 16px 20px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px; }
+.row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.95rem; color: var(--muted); }
+.row b { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-weight: 500; color: var(--ink); }
+.row.total { font-size: 1.1rem; color: var(--ink); padding-top: 8px; border-top: 1px solid var(--line); }
+.row.total b { font-size: 1.2rem; }
+
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; padding-block: 28px 28px; }
+  .hero-art { max-width: 420px; }
+  .panel { grid-template-columns: 1fr; }
+  .panel .tile { aspect-ratio: 1 / 1; min-height: 0; }
+  .m-info { padding: 18px 18px 24px; }
+}
+@media (max-width: 520px) {
+  .nav a { display: none; }
+  .grid { gap: 28px 14px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  .nm { font-size: 1rem; }
+  .meta { flex-direction: column; gap: 2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="g-tee" viewBox="0 0 120 140">
+      <path d="M42 18 L18 34 L28 54 L42 48 V120 H78 V48 L92 54 L102 34 L78 18 C74 28 66 32 60 32 C54 32 46 28 42 18 Z" fill="currentColor"/>
+      <path d="M46 19 C50 29 54 32 60 32 C66 32 70 29 74 19" style="fill:none;stroke:#1A1633;stroke-opacity:.35;stroke-width:2;stroke-linecap:round"/>
+      <path d="M42 112 H78" style="fill:none;stroke:#1A1633;stroke-opacity:.22;stroke-width:1.5;stroke-dasharray:2 3"/>
+    </symbol>
+    <symbol id="g-hoodie" viewBox="0 0 120 140">
+      <path d="M40 30 L10 90 L26 98 L42 66 V122 H78 V66 L94 98 L110 90 L80 30 Z" fill="currentColor"/>
+      <path d="M42 30 C40 8 80 8 78 30 C72 40 48 40 42 30 Z" fill="currentColor"/>
+      <g style="fill:none;stroke:#1A1633;stroke-opacity:.35;stroke-width:2;stroke-linecap:round;stroke-linejoin:round">
+        <path d="M48 30 C50 38 70 38 72 30"/>
+        <path d="M56 40 V58 M64 40 V58"/>
+        <path d="M46 92 H74 L70 108 H50 Z"/>
+        <path d="M42 116 H78"/>
+      </g>
+    </symbol>
+    <symbol id="g-jeans" viewBox="0 0 120 140">
+      <path d="M36 14 H84 L92 126 H66 L60 54 L54 126 H28 Z" fill="currentColor"/>
+      <g style="fill:none;stroke:#1A1633;stroke-opacity:.35;stroke-width:2;stroke-linecap:round">
+        <path d="M36 24 H84 M60 24 V54"/>
+        <path d="M42 24 V34 M78 24 V34"/>
+        <path d="M31 118 H55 M65 118 H89" style="stroke-dasharray:2 3;stroke-opacity:.3"/>
+      </g>
+    </symbol>
+    <symbol id="g-skirt" viewBox="0 0 120 140">
+      <path d="M42 18 H78 L98 114 H22 Z" fill="currentColor"/>
+      <path d="M42 26 H78 M52 26 L44 114 M60 26 V114 M68 26 L76 114" style="fill:none;stroke:#1A1633;stroke-opacity:.35;stroke-width:2;stroke-linecap:round"/>
+    </symbol>
+    <symbol id="g-dress" viewBox="0 0 120 140">
+      <path d="M46 10 H52 L56 28 H64 L68 10 H74 L80 46 L96 124 H24 L40 46 Z" fill="currentColor"/>
+      <path d="M40 46 H80 M34 112 H86" style="fill:none;stroke:#1A1633;stroke-opacity:.3;stroke-width:2;stroke-linecap:round"/>
+    </symbol>
+    <symbol id="g-shirtdress" viewBox="0 0 120 140">
+      <path d="M44 12 L60 26 L76 12 L90 28 L82 48 L100 124 H20 L38 48 L30 28 Z" fill="currentColor"/>
+      <g style="fill:none;stroke:#1A1633;stroke-opacity:.35;stroke-width:2;stroke-linecap:round;stroke-linejoin:round">
+        <path d="M60 26 V124"/>
+        <path d="M36 66 H84"/>
+        <path d="M44 12 L60 26 L76 12"/>
+      </g>
+      <g style="fill:#1A1633;fill-opacity:.4;stroke:none">
+        <circle cx="60" cy="40" r="2"/><circle cx="60" cy="84" r="2"/><circle cx="60" cy="102" r="2"/>
+      </g>
+    </symbol>
+    <symbol id="g-jacket" viewBox="0 0 120 140">
+      <path d="M38 22 L8 82 L24 90 L40 60 V112 H80 V60 L96 90 L112 82 L82 22 L70 30 H50 Z" fill="currentColor"/>
+      <g style="fill:none;stroke:#1A1633;stroke-opacity:.35;stroke-width:2;stroke-linecap:round;stroke-linejoin:round">
+        <path d="M60 30 V112"/>
+        <path d="M50 30 L60 42 L70 30"/>
+        <path d="M44 72 H56 M64 72 H76"/>
+        <path d="M42 106 H78" style="stroke-dasharray:2 3;stroke-opacity:.3"/>
+      </g>
+    </symbol>
+    <symbol id="g-liner" viewBox="0 0 120 140">
+      <path d="M40 20 L12 80 L26 88 L42 58 V118 H78 V58 L94 88 L108 80 L80 20 C74 26 46 26 40 20 Z" fill="currentColor"/>
+      <path d="M60 24 V118 M42 44 H78 M42 66 H78 M42 88 H78 M42 108 H78" style="fill:none;stroke:#1A1633;stroke-opacity:.35;stroke-width:2;stroke-linecap:round"/>
+    </symbol>
+    <symbol id="g-shirt" viewBox="0 0 120 140">
+      <path d="M44 14 L60 26 L76 14 L100 34 L90 54 L80 48 V120 H40 V48 L30 54 L20 34 Z" fill="currentColor"/>
+      <g style="fill:none;stroke:#1A1633;stroke-opacity:.35;stroke-width:2;stroke-linecap:round;stroke-linejoin:round">
+        <path d="M44 14 L60 26 L76 14"/>
+        <path d="M60 26 V120"/>
+        <path d="M66 40 H78 V52 H66 Z"/>
+      </g>
+      <g style="fill:#1A1633;fill-opacity:.4;stroke:none">
+        <circle cx="60" cy="42" r="2"/><circle cx="60" cy="62" r="2"/><circle cx="60" cy="82" r="2"/><circle cx="60" cy="102" r="2"/>
+      </g>
+    </symbol>
+    <symbol id="g-sweater" viewBox="0 0 120 140">
+      <path d="M42 22 L12 86 L28 94 L42 62 V118 H78 V62 L92 94 L108 86 L78 22 C72 30 48 30 42 22 Z" fill="currentColor"/>
+      <g style="fill:none;stroke:#1A1633;stroke-opacity:.35;stroke-width:2;stroke-linecap:round;stroke-linejoin:round">
+        <path d="M46 23 C52 33 68 33 74 23"/>
+        <path d="M42 108 H78 M42 113 H78"/>
+        <path d="M52 44 V102 M60 44 V102 M68 44 V102" style="stroke-opacity:.2"/>
+      </g>
+    </symbol>
+    <symbol id="g-trousers" viewBox="0 0 120 140">
+      <path d="M36 14 H84 L98 126 H64 L60 46 L56 126 H22 Z" fill="currentColor"/>
+      <g style="fill:none;stroke:#1A1633;stroke-opacity:.35;stroke-width:2;stroke-linecap:round">
+        <path d="M36 24 H84 M60 24 V46"/>
+        <path d="M44 30 L36 124 M76 30 L84 124" style="stroke-opacity:.2"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="wrap ann"><p>Free shipping over $75 · Free returns within 30 days</p></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">Cassie Menor</a>
+    <nav class="nav" aria-label="Main">
+      <a href="#shop">Shop</a>
+      <a href="#shipping">Shipping</a>
+      <a href="#sizes">Size guide</a>
+      <button class="bag-btn" id="open-bag" type="button" aria-haspopup="dialog">Bag <span class="n" id="bag-count">0</span></button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <section class="hero">
+    <div class="hero-text">
+      <span class="tag">Fall + Winter</span>
+      <h1><span>Cassie</span><span>Menor</span></h1>
+      <p class="lede">Everyday clothes in clean shapes and strong color.</p>
+      <a class="cta" href="#shop">Shop the collection</a>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="tile" style="--c:#7A3E7C"><svg viewBox="0 0 120 140"><use href="#g-hoodie"/></svg></div>
+      <div class="tile" style="--c:#E0708F"><svg viewBox="0 0 120 140"><use href="#g-dress"/></svg></div>
+      <div class="tile" style="--c:#55607A"><svg viewBox="0 0 120 140"><use href="#g-jeans"/></svg></div>
+    </div>
+  </section>
+
+  <section id="shop" aria-labelledby="shop-title">
+    <div class="shop-head">
+      <h2 id="shop-title">Shop</h2>
+      <p class="count" id="shown-count" aria-live="polite"></p>
+    </div>
+    <div class="search">
+      <label class="sr" for="search">Search the shop</label>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="search" type="search" placeholder="Search jeans, dresses, blue, sale" autocomplete="off" spellcheck="false">
+      <button class="clear" id="clear-search" type="button" hidden>Clear</button>
+    </div>
+    <div class="controls">
+      <div class="filters" role="group" aria-label="Filter by category">
+        <button class="filter" type="button" data-cat="All" aria-pressed="true">All</button>
+        <button class="filter" type="button" data-cat="Shirts" aria-pressed="false">Shirts</button>
+        <button class="filter" type="button" data-cat="Pants" aria-pressed="false">Pants</button>
+        <button class="filter" type="button" data-cat="Sweaters" aria-pressed="false">Sweaters</button>
+        <button class="filter" type="button" data-cat="Coats" aria-pressed="false">Coats</button>
+        <button class="filter" type="button" data-cat="Skirts &amp; Dresses" aria-pressed="false">Skirts &amp; Dresses</button>
+      </div>
+      <label class="sort" for="sort">Sort
+        <select id="sort">
+          <option value="featured">Featured</option>
+          <option value="low">Price: low to high</option>
+          <option value="high">Price: high to low</option>
+        </select>
+      </label>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="none" id="none" hidden>
+      <p id="none-msg"></p>
+      <button class="btn" id="reset-filters" type="button">Clear search and filters</button>
+    </div>
+  </section>
+
+  <section class="info" id="shipping" aria-label="Shipping, returns and care">
+    <div><h3>Shipping</h3><p>Orders ship in 1 to 3 business days. Standard shipping is $6 and free on orders over $75.</p></div>
+    <div><h3>Returns</h3><p>Return unworn items with tags attached within 30 days for a full refund.</p></div>
+    <div><h3>Care</h3><p>Wash cold with like colors and tumble dry low. Fabric and care notes are listed on every product.</p></div>
+  </section>
+
+  <section class="guide" id="sizes" aria-labelledby="sizes-title">
+    <h2 id="sizes-title">Size guide</h2>
+    <p>Body measurements in inches. Measure over thin clothing and pick the size that matches your largest measurement.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th scope="col">Size</th><th scope="col">Bust</th><th scope="col">Waist</th><th scope="col">Hip</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>XS</td><td>32–33</td><td>25–26</td><td>35–36</td></tr>
+          <tr><td>S</td><td>34–35</td><td>27–28</td><td>37–38</td></tr>
+          <tr><td>M</td><td>36–37</td><td>29–30</td><td>39–40</td></tr>
+          <tr><td>L</td><td>38–40</td><td>31–33</td><td>41–43</td></tr>
+          <tr><td>XL</td><td>41–43</td><td>34–36</td><td>44–46</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <strong>Cassie Menor</strong>
+    <span>Sample storefront. Products, prices, policies and measurements are placeholders.</span>
+  </footer>
+</main>
+
+<div class="modal" id="modal" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="tile" id="m-tile"></div>
+    <div class="m-info">
+      <div class="m-top"><p class="cat" id="m-cat"></p><button class="close" id="close-modal" type="button">Close</button></div>
+      <h2 id="modal-title"></h2>
+      <p class="m-price" id="m-price"></p>
+      <p class="desc" id="m-desc"></p>
+      <fieldset class="opt">
+        <legend><span>Color: <b id="color-name"></b></span></legend>
+        <div class="opt-row" id="swatches"></div>
+      </fieldset>
+      <fieldset class="opt">
+        <legend><span>Size</span><a href="#sizes" id="guide-link">Size guide</a></legend>
+        <div class="opt-row" id="m-sizes"></div>
+      </fieldset>
+      <button class="btn primary" id="m-add" type="button">Add to bag</button>
+      <p class="note" id="m-note" aria-live="polite"></p>
+      <div id="m-details"></div>
+    </div>
+  </div>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden>
+  <div class="drawer-head">
+    <h2 id="drawer-title">Your bag</h2>
+    <button class="close" id="close-bag" type="button">Close</button>
+  </div>
+  <div class="ship"><p id="ship-msg"></p><div class="bar"><i id="bar-fill"></i></div></div>
+  <div class="lines" id="lines"></div>
+  <div class="drawer-foot">
+    <div class="row"><span>Subtotal</span><b id="subtotal">$0.00</b></div>
+    <div class="row"><span>Shipping</span><b id="shipping-cost">$0.00</b></div>
+    <div class="row total"><span>Total</span><b id="total">$0.00</b></div>
+    <p class="note">Taxes are calculated at checkout.</p>
+    <button class="btn primary" id="checkout" type="button">Check out</button>
+    <p class="note" id="checkout-note" aria-live="polite"></p>
+  </div>
+</aside>
+
+<script>
+(function () {
+  var SIZES = ['XS', 'S', 'M', 'L', 'XL'];
+  var FREE_AT = 75, SHIP = 6;
+  var WASH = 'Machine wash cold with like colors. Tumble dry low.';
+  var PRODUCTS = [
+    { id: 'boxy-tee', name: 'Boxy Tee', cat: 'Shirts', price: 28, badge: 'new', glyph: 'tee', soldOut: [],
+      colors: [['Tangerine', '#F08A3C'], ['Ink', '#2B2F4A'], ['Bone', '#E9E4D8'], ['Sage', '#7FA58A']],
+      desc: 'A roomy everyday tee with a dropped shoulder and a clean crew neck.',
+      details: ['100% cotton jersey', 'Boxy fit with a dropped shoulder. Size down for a closer fit.', WASH] },
+    { id: 'heavy-hoodie', name: 'Heavyweight Hoodie', cat: 'Sweaters', price: 64, was: 80, badge: 'sale', glyph: 'hoodie', soldOut: ['XS'],
+      colors: [['Plum', '#7A3E7C'], ['Charcoal', '#3A3D4A'], ['Cobalt', '#3B4BF0']],
+      desc: 'Thick brushed fleece with a deep hood, kangaroo pocket and a soft inside.',
+      details: ['Brushed cotton-blend fleece', 'Oversized fit with a drawstring hood.', WASH] },
+    { id: 'straight-jeans', name: 'Straight-Leg Jeans', cat: 'Pants', price: 72, glyph: 'jeans', soldOut: ['XL'],
+      colors: [['Mid wash', '#55607A'], ['Dark wash', '#2C3552'], ['Washed black', '#3A3A44']],
+      desc: 'High-rise jeans with a straight leg and a full-length inseam.',
+      details: ['Rigid cotton denim, 12 oz', 'High rise, straight through the leg.', 'Wash cold, inside out. Hang to dry.'] },
+    { id: 'pleat-skirt', name: 'Pleated Mini Skirt', cat: 'Skirts & Dresses', price: 44, badge: 'new', glyph: 'skirt', soldOut: [],
+      colors: [['Butter', '#E8C547'], ['Black', '#25232E'], ['Rose', '#E0708F']],
+      desc: 'A short knife-pleat skirt that moves well and stays put.',
+      details: ['Woven poly-viscose twill', 'Mini length with a hidden side zip.', 'Machine wash cold. Line dry.'] },
+    { id: 'slip-dress', name: 'Slip Dress', cat: 'Skirts & Dresses', price: 68, glyph: 'dress', soldOut: ['S'],
+      colors: [['Rose', '#E0708F'], ['Midnight', '#2B2F5E'], ['Pistachio', '#A8C79A']],
+      desc: 'A bias-cut slip with thin adjustable straps. Wear it alone or over a tee.',
+      details: ['Satin-finish viscose', 'Bias cut. Falls just below the knee.', 'Hand wash cold. Line dry.'] },
+    { id: 'shirt-dress', name: 'Cotton Shirt Dress', cat: 'Skirts & Dresses', price: 82, was: 98, badge: 'sale', glyph: 'shirtdress', soldOut: [],
+      colors: [['Sage', '#7FA58A'], ['Sky', '#7FA9D6'], ['Sand', '#D9C7A3']],
+      desc: 'A button-front midi with a self-tie belt and a crisp collar.',
+      details: ['Cotton poplin', 'Midi length. Belt cinches the waist.', WASH] },
+    { id: 'denim-jacket', name: 'Cropped Denim Jacket', cat: 'Coats', price: 96, glyph: 'jacket', soldOut: [],
+      colors: [['Indigo', '#3B4BF0'], ['Light wash', '#8FA8D6'], ['Black', '#25232E']],
+      desc: 'A structured jacket that stops at the waist. Pairs with high-rise bottoms.',
+      details: ['Cotton denim', 'Cropped, structured fit.', 'Wash cold, inside out. Hang to dry.'] },
+    { id: 'quilt-liner', name: 'Quilted Liner Jacket', cat: 'Coats', price: 110, badge: 'new', glyph: 'liner', soldOut: ['XS', 'M'],
+      colors: [['Teal', '#2F8F9D'], ['Olive', '#6F7B4A'], ['Black', '#25232E']],
+      desc: 'Lightweight quilting with a zip front. Layer it under a coat or wear it solo.',
+      details: ['Recycled polyester shell, light fill', 'Regular fit with two zip pockets.', 'Machine wash cold, gentle cycle.'] },
+    { id: 'oxford-shirt', name: 'Oxford Shirt', cat: 'Shirts', price: 58, glyph: 'shirt', soldOut: ['XL'],
+      colors: [['Sky', '#7FA9D6'], ['Butter', '#E8C547'], ['Ink', '#2B2F4A']],
+      desc: 'A crisp button-up with a relaxed fit. Wear it buttoned or open over a tee.',
+      details: ['Cotton oxford cloth', 'Relaxed fit with a button-down collar.', WASH] },
+    { id: 'wide-trousers', name: 'Wide-Leg Trousers', cat: 'Pants', price: 76, glyph: 'trousers', soldOut: [],
+      colors: [['Charcoal', '#3A3D4A'], ['Sand', '#D9C7A3'], ['Olive', '#6F7B4A']],
+      desc: 'High-waisted trousers with a wide leg and a front crease.',
+      details: ['Woven cotton-blend twill', 'High rise with a wide leg. Falls to the ankle.', 'Machine wash cold. Hang to dry.'] },
+    { id: 'knit-sweater', name: 'Chunky Knit Sweater', cat: 'Sweaters', price: 88, badge: 'new', glyph: 'sweater', soldOut: ['S'],
+      colors: [['Oatmeal', '#D9C7A3'], ['Cobalt', '#3B4BF0'], ['Plum', '#7A3E7C']],
+      desc: 'A thick crew-neck knit with ribbed trim. Warm without feeling stiff.',
+      details: ['Cotton and wool-blend yarn', 'Relaxed fit with ribbed cuffs and hem.', 'Hand wash cold. Dry flat.'] }
+  ];
+  var byId = {};
+  PRODUCTS.forEach(function (p) { byId[p.id] = p; });
+
+  var m0 = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+  var m2 = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 });
+  function $(s) { return document.querySelector(s); }
+  function priceHTML(p) {
+    return '<span class="now">' + m0.format(p.price) + '</span>' + (p.was ? '<s class="was">' + m0.format(p.was) + '</s>' : '');
+  }
+  function badgeHTML(p) {
+    return p.badge ? '<span class="badge ' + p.badge + '">' + (p.badge === 'sale' ? 'Sale' : 'New') + '</span>' : '';
+  }
+  function garment(p) { return '<svg viewBox="0 0 120 140" aria-hidden="true"><use href="#g-' + p.glyph + '"/></svg>'; }
+
+  /* Bag, remembered per viewer when storage is available */
+  var cart = [];
+  try { cart = JSON.parse(localStorage.getItem('cm-bag-2') || '[]'); } catch (e) { cart = []; }
+  if (!Array.isArray(cart)) cart = [];
+  cart = cart.filter(function (i) {
+    return i && byId[i.id] && Number.isInteger(i.ci) && byId[i.id].colors[i.ci] &&
+      SIZES.indexOf(i.size) > -1 && Number.isInteger(i.qty) && i.qty > 0;
+  });
+  function save() { try { localStorage.setItem('cm-bag-2', JSON.stringify(cart)); } catch (e) {} }
+
+  /* Grid */
+  var grid = $('#grid');
+  grid.innerHTML = PRODUCTS.map(function (p) {
+    var dots = p.colors.map(function (c) { return '<i style="--sw:' + c[1] + '"></i>'; }).join('');
+    var catH = p.cat.replace(/&/g, '&amp;');
+    return '<article class="card" data-id="' + p.id + '" data-cat="' + catH + '">' +
+      '<button class="card-main" type="button" data-id="' + p.id + '" aria-label="View ' + p.name + '">' +
+      '<span class="tile" style="--c:' + p.colors[0][1] + '">' + garment(p) + badgeHTML(p) + '</span>' +
+      '<span class="meta"><span class="nm">' + p.name + '</span><span class="pr">' + priceHTML(p) + '</span></span>' +
+      '<span class="cat">' + catH + ' · ' + p.colors.length + ' colors</span>' +
+      '<span class="dots" aria-hidden="true">' + dots + '</span>' +
+      '</button></article>';
+  }).join('');
+
+  var KEYWORDS = {
+    'Shirts': 'shirt shirts top tops tee blouse',
+    'Pants': 'pants trousers bottoms',
+    'Sweaters': 'sweater sweaters sweatshirt jumper knit hoodie',
+    'Coats': 'coat coats jacket jackets outerwear',
+    'Skirts & Dresses': 'skirt skirts dress dresses'
+  };
+  var hay = {};
+  PRODUCTS.forEach(function (p) {
+    hay[p.id] = [p.name, p.cat, KEYWORDS[p.cat] || '', p.colors.map(function (c) { return c[0]; }).join(' '), p.desc,
+      p.badge === 'sale' ? 'sale' : '', p.badge === 'new' ? 'new' : ''].join(' ').toLowerCase();
+  });
+  var activeCat = 'All', query = '';
+  var searchEl = $('#search'), clearEl = $('#clear-search'), noneEl = $('#none');
+
+  function applyFilters() {
+    var terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+    var shown = 0;
+    grid.querySelectorAll('.card').forEach(function (c) {
+      var catOk = activeCat === 'All' || c.getAttribute('data-cat') === activeCat;
+      var h = hay[c.getAttribute('data-id')];
+      var textOk = terms.every(function (t) { return h.indexOf(t) > -1; });
+      c.hidden = !(catOk && textOk);
+      if (!c.hidden) shown++;
+    });
+    $('#shown-count').textContent = shown + (shown === 1 ? ' piece' : ' pieces');
+    clearEl.hidden = !query;
+    noneEl.hidden = shown > 0;
+    $('#none-msg').textContent = query.trim() ? 'No pieces match \u201C' + query.trim() + '\u201D.' : 'No pieces in this category yet.';
+  }
+  function setCategory(cat) {
+    activeCat = cat;
+    document.querySelectorAll('.filter').forEach(function (f) { f.setAttribute('aria-pressed', f.getAttribute('data-cat') === cat ? 'true' : 'false'); });
+  }
+
+  $('.filters').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-cat]');
+    if (!b) return;
+    setCategory(b.getAttribute('data-cat'));
+    applyFilters();
+  });
+  searchEl.addEventListener('input', function () { query = searchEl.value; applyFilters(); });
+  clearEl.addEventListener('click', function () { searchEl.value = ''; query = ''; applyFilters(); searchEl.focus(); });
+  $('#reset-filters').addEventListener('click', function () { searchEl.value = ''; query = ''; setCategory('All'); applyFilters(); });
+  applyFilters();
+
+  $('#sort').addEventListener('change', function () {
+    var v = this.value, list = PRODUCTS.slice();
+    if (v === 'low') list.sort(function (a, b) { return a.price - b.price; });
+    if (v === 'high') list.sort(function (a, b) { return b.price - a.price; });
+    list.forEach(function (p) { grid.appendChild(grid.querySelector('.card[data-id="' + p.id + '"]')); });
+  });
+
+  /* Product modal */
+  var modal = $('#modal'), drawer = $('#drawer'), scrim = $('#scrim'), bagBtn = $('#open-bag');
+  var cur = null, curColor = 0, curOpener = null;
+
+  function syncLock() { document.documentElement.style.overflow = (!modal.hidden || !drawer.hidden) ? 'hidden' : ''; }
+
+  function openModal(id, opener) {
+    cur = byId[id]; curColor = 0; curOpener = opener || null;
+    $('#m-tile').style.setProperty('--c', cur.colors[0][1]);
+    $('#m-tile').innerHTML = garment(cur) + badgeHTML(cur);
+    $('#m-cat').textContent = cur.cat;
+    $('#modal-title').textContent = cur.name;
+    $('#m-price').innerHTML = priceHTML(cur);
+    $('#m-desc').textContent = cur.desc;
+    $('#color-name').textContent = cur.colors[0][0];
+    $('#swatches').innerHTML = cur.colors.map(function (c, i) {
+      return '<label class="sw"><input type="radio" name="color" value="' + i + '"' + (i === 0 ? ' checked' : '') + '><span style="--sw:' + c[1] + '"></span><span class="sr">' + c[0] + '</span></label>';
+    }).join('');
+    $('#m-sizes').innerHTML = SIZES.map(function (s) {
+      var out = cur.soldOut.indexOf(s) > -1;
+      return '<label class="chip' + (out ? ' out' : '') + '"><input type="radio" name="msize" value="' + s + '"' + (out ? ' disabled' : '') + '><span>' + s + '</span>' + (out ? '<span class="sr">, sold out</span>' : '') + '</label>';
+    }).join('');
+    $('#m-details').innerHTML =
+      '<details><summary>Fabric and fit</summary><ul><li>' + cur.details[0] + '</li><li>' + cur.details[1] + '</li></ul></details>' +
+      '<details><summary>Care</summary><p>' + cur.details[2] + '</p></details>' +
+      '<details><summary>Shipping and returns</summary><p>Ships in 1 to 3 business days. Free shipping over $75. Free returns within 30 days on unworn items with tags.</p></details>';
+    $('#m-note').textContent = '';
+    modal.hidden = false;
+    modal.scrollTop = 0;
+    syncLock();
+    $('#close-modal').focus();
+  }
+  function closeModal(restore) {
+    modal.hidden = true;
+    syncLock();
+    if (restore !== false && curOpener) curOpener.focus();
+  }
+
+  grid.addEventListener('click', function (e) {
+    var b = e.target.closest('.card-main');
+    if (b) openModal(b.getAttribute('data-id'), b);
+  });
+  $('#swatches').addEventListener('change', function (e) {
+    if (!e.target.matches('input')) return;
+    curColor = Number(e.target.value);
+    $('#m-tile').style.setProperty('--c', cur.colors[curColor][1]);
+    $('#color-name').textContent = cur.colors[curColor][0];
+  });
+  $('#m-sizes').addEventListener('change', function () { $('#m-note').textContent = ''; });
+  $('#m-add').addEventListener('click', function () {
+    var sel = $('#m-sizes input:checked');
+    if (!sel) { $('#m-note').textContent = 'Pick a size first.'; return; }
+    addItem(cur.id, curColor, sel.value);
+    closeModal(false);
+    openBag();
+  });
+  $('#guide-link').addEventListener('click', function () { closeModal(false); });
+  $('#close-modal').addEventListener('click', function () { closeModal(); });
+  modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+
+  /* Bag */
+  function addItem(id, ci, size) {
+    var found = cart.find(function (i) { return i.id === id && i.ci === ci && i.size === size; });
+    if (found) found.qty += 1; else cart.push({ id: id, ci: ci, size: size, qty: 1 });
+    save(); renderBag();
+  }
+
+  function renderBag() {
+    var count = 0, subtotal = 0;
+    cart.forEach(function (i) { count += i.qty; subtotal += byId[i.id].price * i.qty; });
+    var shipping = cart.length && subtotal < FREE_AT ? SHIP : 0;
+
+    $('#lines').innerHTML = cart.length ? cart.map(function (i, idx) {
+      var p = byId[i.id];
+      return '<div class="line" data-idx="' + idx + '">' +
+        '<div class="tile" style="--c:' + p.colors[i.ci][1] + '">' + garment(p) + '</div>' +
+        '<div><p class="ln">' + p.name + '</p><p class="ls">' + p.colors[i.ci][0] + ' · ' + i.size + '</p>' +
+        '<div class="qty"><button type="button" data-act="dec" aria-label="Decrease quantity of ' + p.name + '">−</button><span>' + i.qty + '</span><button type="button" data-act="inc" aria-label="Increase quantity of ' + p.name + '">+</button></div></div>' +
+        '<div class="lr"><span class="lp">' + m2.format(p.price * i.qty) + '</span><button class="rm" type="button" data-act="rm">Remove</button></div>' +
+        '</div>';
+    }).join('') : '<p class="empty">Your bag is empty. Open any piece, pick a color and size, and add it here.</p>';
+
+    var msg = 'Free shipping on orders over ' + m0.format(FREE_AT) + '.';
+    if (cart.length) msg = subtotal >= FREE_AT ? 'You have free shipping on this order.' : 'Add ' + m2.format(FREE_AT - subtotal) + ' more for free shipping.';
+    $('#ship-msg').textContent = msg;
+    $('#bar-fill').style.width = Math.min(100, subtotal / FREE_AT * 100) + '%';
+
+    $('#bag-count').textContent = count;
+    $('#subtotal').textContent = m2.format(subtotal);
+    $('#shipping-cost').textContent = !cart.length ? m2.format(0) : (shipping ? m2.format(shipping) : 'Free');
+    $('#total').textContent = m2.format(subtotal + shipping);
+    $('#checkout').disabled = !cart.length;
+    if (!cart.length) $('#checkout-note').textContent = '';
+  }
+
+  $('#lines').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-act]');
+    if (!b) return;
+    var idx = Number(b.closest('.line').getAttribute('data-idx'));
+    var act = b.getAttribute('data-act');
+    if (act === 'inc') cart[idx].qty += 1;
+    if (act === 'dec') cart[idx].qty -= 1;
+    if (act === 'rm' || cart[idx].qty < 1) cart.splice(idx, 1);
+    save(); renderBag();
+  });
+
+  $('#checkout').addEventListener('click', function () {
+    $('#checkout-note').textContent = 'Checkout is not connected yet. This is a preview storefront, so nothing is ordered or charged.';
+  });
+
+  function openBag() { drawer.hidden = false; scrim.hidden = false; syncLock(); $('#close-bag').focus(); }
+  function closeBag() { drawer.hidden = true; scrim.hidden = true; syncLock(); bagBtn.focus(); }
+  bagBtn.addEventListener('click', openBag);
+  $('#close-bag').addEventListener('click', closeBag);
+  scrim.addEventListener('click', closeBag);
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    if (!modal.hidden) closeModal(); else if (!drawer.hidden) closeBag();
+  });
+
+  renderBag();
+})();
+</script>
+
+</body></html>
